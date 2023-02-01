@@ -1,0 +1,36 @@
+from pygame.locals import QUIT
+
+resX = 1000
+resY = 1000
+x = 0
+y = 0
+
+
+pygame.init()
+DISPLAYSURF = pygame.display.set_mode((resX,resY))
+pygame.display.set_caption('SamIAm')
+
+sq_surface = pygame.Surface((100,100))
+
+def square(x,y):
+    DISPLAYSURF.blit(sq_surface,(x,y))
+
+while True:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+            
+    DISPLAYSURF.fill((33,33,77))
+    
+    #make a while loop to make a checkerboard, think colomns and rows
+    
+    
+    square(100,100)
+#     square(800,100)
+#     square(100,900)
+#     square(800,900)
+    
+
+    pygame.display.update()
+    

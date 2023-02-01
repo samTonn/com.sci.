@@ -7,16 +7,17 @@ resY = 1000
 x = 0 # coordinates
 y = 0
 
-at_origin = True
-sq_size = 100
+
+sizeX = resX/10
+sizeY = resY/10
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((resX,resY))
 pygame.display.set_caption('SamIAm')
 
-sq_surface = pygame.Surface((100,100))
+sq_surface = pygame.Surface((sizeX, sizeY))
 
-DISPLAYSURF.fill((33,33,77))
+DISPLAYSURF.fill((33,99,33))
 
 def square(x,y):
     DISPLAYSURF.blit(sq_surface,(x,y))
@@ -26,23 +27,17 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-            
-    while y < resY: # limits the size of the checkerboard
-        
-        if at_origin == True: # Makes each row flip flop
-            x = sq_size
-            at_origin = False
-        elif at_origin == False:
+           
+    for i in range(10):
+        if i%2 == 1:
             x = 0
-            at_origin = True
-            
-        while x < resX: # puts a square on every other colomn
+        else:
+            x = 100
+        for n in range(5):
             square(x,y)
-            x += sq_size * 2
-        y += sq_size # goes down a row
+            x += 200
+        y += 100
         
-    
-    #make a while loop to make a checkerboard, think colomns and rows
     
 
     pygame.display.update()

@@ -29,18 +29,18 @@ while True:
             sys.exit()
            
     for i in range(0,9):
-        if i%2 == 0:
-            atZero = True
-        else:
-            atZero = False
         for n in range(0,9):
-						sq_surface.fill(#mapped n 0-9 to 0-255, n*i 0-81 to 0-255, i 0-9, 0-255)
-						if atZero:
+#									255/9=28.3, 255/81=3.15, 255/9=28.333		every 1 in 0-9, its jumps 28.3 to match the 0-255 ratio
+						sq_surface.fill(n*28, n*i*3, i*28) #rgb
+
+						if i%2 == 0: #flip flop
 								if n%2 == 0:
 										square(x,y)
+
 						else:
 								if n%2 == 1:
 										square(x,y)
+						x += 100
         y += 100
         
     

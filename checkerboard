@@ -28,14 +28,19 @@ while True:
             pygame.quit()
             sys.exit()
            
-    for i in range(10):
-        if i%2 == 1:
-            x = 0
+    for i in range(0,9):
+        if i%2 == 0:
+            atZero = True
         else:
-            x = 100
-        for n in range(5):
-            square(x,y)
-            x += 200
+            atZero = False
+        for n in range(0,9):
+						sq_surface.fill(#mapped n 0-9 to 0-255, n*i 0-81 to 0-255, i 0-9, 0-255)
+						if atZero:
+								if n%2 == 0:
+										square(x,y)
+						else:
+								if n%2 == 1:
+										square(x,y)
         y += 100
         
     

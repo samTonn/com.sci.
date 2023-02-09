@@ -1,0 +1,62 @@
+import pygame, sys
+from pygame.locals import QUIT
+
+#Global Setup
+pygame.init()
+WIDTH, HEIGHT = 1280,720
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('Astroid SHOOT!')
+clock = pygame.time.Clock()
+
+shipW = 120
+shipH = 80
+
+
+test_surface = pygame.Surface((shipW,shipH))
+
+shipX = WIDTH/2
+shipY = HEIGHT/2
+
+up = True
+right = True
+left = False
+down = False
+
+#Game Loop
+while True:
+    #Close Game Event
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+    
+    clock.tick(120)
+
+    #ship
+    screen.fill((0,0,0))
+    test_surface.fill((155,155,155))
+    screen.blit(test_surface, (shipX, shipY))
+    
+    if shipX <= 0:
+        right = True
+        left = False
+    if shipY <= 0:
+        up = True
+        down = False
+    if shipX >= WIDTH - shipW:
+        left = True
+        right = False
+    if shipY >= HEIGHT - shipH:
+        down = True
+        up = False
+    
+    if up:
+        shipY += 2
+    if right:
+        shipX += 3
+    if left:
+        shipX -= 3
+    if down:
+        shipY -= 2
+    
+    pygame.display.update()

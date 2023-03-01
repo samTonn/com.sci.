@@ -3,10 +3,16 @@ class Enemy:
         self.name = name
         self.hp = hp
         self.damage = damage
+        
+    def dmg(self, dmg):
+        print(dmg)
+        self.hp -= dmg
+        return(self.hp)
+    
     def speak(self, sound):
         return f'{self.name} says {sound}'
         
 enemy1 = Enemy("Goomba", 1, 1)
 enemy2 = Enemy("Bowzer", 200, 20)
 
-enemy2.speak("OUCH!")
+print(enemy2.dmg(3))

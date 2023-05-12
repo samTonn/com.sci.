@@ -1,0 +1,31 @@
+to convert decimal to binary, you devide the number my 2, and the remainder will be either 0 or 1. thats the right most digit.
+then devide by two again and repeat until your division outputs 0 (aka impossible to do 1/2, but has a remainder of 1).
+
+to convert from binary to decimal, you take the right most digit and multiply by 2^0, and write that somewhere. the second digit is multplied by 2^1, and then the next 2^2, etc.
+then you take all those values and add them up, and that's your number.
+
+here's the code for each:
+#######################################################
+# Binary to decimal conversion
+def binary_to_decimal(binary):
+    decimal = 0
+    power = len(binary) - 1
+    for digit in binary:
+        decimal += int(digit) * 2 ** power
+        power -= 1
+    return decimal
+
+# Decimal to binary conversion
+def decimal_to_binary(decimal):
+    binary = ""
+    while decimal > 0:
+        binary = str(decimal % 2) + binary
+        decimal //= 2
+    return binary
+
+# Examples
+binary_num = "10101"
+decimal_num = 21
+print(binary_to_decimal(binary_num))   # Output: 21
+print(decimal_to_binary(decimal_num))  # Output: 10101
+#######################################################

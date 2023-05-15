@@ -1,0 +1,54 @@
+run = True
+
+while run:
+    print("Welcome to Sam's Converter! To start, please ")
+    
+    user_answered_choice = False
+    while not user_answered_choice:
+        choice = input("Type 1,2,3 or 4 to select the type of conversion.\n\t1 = Decimal to Binary\n\t2 = Binary to Decimal\n\t3 = Hexidecimal to RGB\n\t4 = RGB to Hexidecimal\n")
+        if choice == 1:
+            user_answered_choice = True
+        elif choice == 2:
+            user_answered_choice = True
+        elif choice == 3:
+            user_answered_choice = True
+        elif choice == 4:
+            user_answered_choice = True
+        else:
+            print("\nPlease answer with a number from 1 through 4")
+            user_answered_choice = False
+    
+    #exit with y or n
+    user_answered_exit = False
+    while not user_answered_exit:
+        exit = input("Would you like to exit? (y/n): ").lower()
+        if exit == "n":
+            user_answered_exit = True # complete this later
+        elif exit == "y":
+            user_answered_exit = True
+            run = False
+        else:
+            print("\nPlease type 'y' or 'n'")
+
+#Binary to decimal conversion
+def binary_to_decimal(binary):
+    decimal = 0
+    power = len(binary) - 1
+    for digit in binary:
+        decimal += int(digit) * 2 ** power
+        power -= 1
+    return decimal
+
+# Decimal to binary conversion
+def decimal_to_binary(decimal):
+    binary = ""
+    while decimal > 0:
+        binary = str(decimal % 2) + binary
+        decimal //= 2
+    return binary
+
+# Examples
+#binary_num = "10101"
+#decimal_num = 21
+#print(binary_to_decimal(binary_num))   # Output: 21
+#print(decimal_to_binary(decimal_num))  # Output: 10101

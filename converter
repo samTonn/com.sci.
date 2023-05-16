@@ -1,22 +1,71 @@
+# integer to binary conversion
+def integer_to_binary(integer):
+    binary = ""
+    while integer > 0:
+        binary = str(integer % 2) + binary
+        integer //= 2
+    return binary
+
+#Binary to integer conversion
+def binary_to_integer(binary):
+    integer = 0
+    str_binary = str(binary)
+    power = len(str_binary) - 1
+    for digit in str_binary:
+        if digit not in '01':
+            raise ValueError("Not a binary number")
+        integer += int(digit) * 2 ** power
+        power -= 1
+    return integer
+
+
 run = True
 
 while run:
     print("Welcome to Sam's Converter! To start, please ")
     
-    user_answered_choice = False
-    while not user_answered_choice:
-        choice = input("Type 1,2,3 or 4 to select the type of conversion.\n\t1 = Decimal to Binary\n\t2 = Binary to Decimal\n\t3 = Hexidecimal to RGB\n\t4 = RGB to Hexidecimal\n")
-        if choice == 1:
-            user_answered_choice = True
-        elif choice == 2:
-            user_answered_choice = True
-        elif choice == 3:
-            user_answered_choice = True
-        elif choice == 4:
-            user_answered_choice = True
-        else:
-            print("\nPlease answer with a number from 1 through 4")
-            user_answered_choice = False
+    valid_choice = False
+    while not valid_choice:
+        try:
+            choice = int(input("Type 1,2,3 or 4 to select the type of conversion.\n\t1 = integer to Binary\n\t2 = Binary to integer\n\t3 = Hexidecimal to RGB\n\t4 = RGB to Hexidecimal\n"))
+            if choice >=1 and choice <= 4:
+                valid_choice = True
+            else:
+                print("\nPlease type a number from 1-4")
+        except:
+            print("\nPlease type a Whole Number from the list")
+        
+    
+    valid_number = False
+    while not valid_number:
+        answer = 0
+        try:
+            if choice == 1:
+                number = int(input("Type a Positive Whole number\n"))
+                if number >= 0:
+                    answer = integer_to_binary(number)
+                    valid_number = True
+                else:
+                    print("\nPlease give a Positive number")
+                    
+            elif choice == 2:
+                number = int(input("Type a series of 1s and 0s\n"))
+                if number >= 0:
+                    answer = binary_to_integer(number)
+                    valid_number = True
+                else:
+                    print("\n1s and 0s must not be negative")
+                    
+            elif choice == 3:
+                pass
+            
+            elif choice == 4:
+                pass
+        except:
+            print("\nPlease type a valid Number")
+        
+    print(answer)
+    print()
     
     #exit with y or n
     user_answered_exit = False
@@ -30,25 +79,3 @@ while run:
         else:
             print("\nPlease type 'y' or 'n'")
 
-#Binary to decimal conversion
-def binary_to_decimal(binary):
-    decimal = 0
-    power = len(binary) - 1
-    for digit in binary:
-        decimal += int(digit) * 2 ** power
-        power -= 1
-    return decimal
-
-# Decimal to binary conversion
-def decimal_to_binary(decimal):
-    binary = ""
-    while decimal > 0:
-        binary = str(decimal % 2) + binary
-        decimal //= 2
-    return binary
-
-# Examples
-#binary_num = "10101"
-#decimal_num = 21
-#print(binary_to_decimal(binary_num))   # Output: 21
-#print(decimal_to_binary(decimal_num))  # Output: 10101

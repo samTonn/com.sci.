@@ -18,12 +18,26 @@ def binary_to_integer(binary):
         power -= 1
     return integer
 
+#Hexadecimal to RGB conversion
+def hex_to_rgb(hex):
+  rgb = []
+  for i in (0, 2, 4):
+    decimal = int(hex[i:i+2], 16)
+    rgb.append(decimal)
+  
+  return tuple(rgb)
 
+#RGB to Hexadecimal conversion
+def rgb_to_hex(rgb):
+    return "#{:02x}{:02x}{:02x}".format(*rgb)
+
+
+#run loop
 run = True
-
 while run:
     print("Welcome to Sam's Converter! To start, please ")
     
+    #gets type of conversion
     valid_choice = False
     while not valid_choice:
         try:
@@ -35,7 +49,7 @@ while run:
         except:
             print("\nPlease type a Whole Number from the list")
         
-    
+    #gets number for conversion
     valid_number = False
     while not valid_number:
         answer = 0
@@ -57,22 +71,28 @@ while run:
                     print("\n1s and 0s must not be negative")
                     
             elif choice == 3:
-                pass
+                number = str(input("Type three pairs of numbers and letters ranging from 0-9 and A-F\n"))
+                answer = hex_to_rgb(number)
+                valid_number = True
             
             elif choice == 4:
-                pass
+                list = input("Input some comma seprated Integers : ").split(",")
+                tuple = (int(list[0]), int(list[1]), int(list[2]))
+                answer = rgb_to_hex(tuple)
+                valid_number = True
         except:
             print("\nPlease type a valid Number")
         
-    print(answer)
-    print()
+    #outputs
+    print("\n\t= " + str(answer))
+    
     
     #exit with y or n
     user_answered_exit = False
     while not user_answered_exit:
-        exit = input("Would you like to exit? (y/n): ").lower()
+        exit = input("\nWould you like to exit? (y/n): ").lower()
         if exit == "n":
-            user_answered_exit = True # complete this later
+            user_answered_exit = True
         elif exit == "y":
             user_answered_exit = True
             run = False

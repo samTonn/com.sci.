@@ -4,7 +4,7 @@ saved_settings = "saved_settings.txt"
 game_settings = {"resolution":"1920x1080","volume":50, "graphics quality":"high"}
 
 def update_settings():
-    game_settings['resolusion'] = input("resolution: ")
+    game_settings['resolution'] = input("resolution: ")
     game_settings['volume'] = input("volume: ")
     game_settings['graphics quality'] = input("graphics quality: ")
 
@@ -22,15 +22,16 @@ if os.path.isfile(saved_settings):
 
 run = True
 while run:
-    print("Game Settings\n\nResolution: {}\nVolume: {}\nGraphics Quality: {}".format(game_settings["resolution"], game_settings["volume"], game_settings['graphics quality']))
+    print("\nGame Settings\n\nResolution: {}\nVolume: {}\nGraphics Quality: {}".format(game_settings["resolution"], game_settings["volume"], game_settings['graphics quality']))
     response = int(input("\nEnter one of the following:\nUpdate = 1\nSave = 2\nExit = 3\n"))
     match response:
         case 1:
             update_settings()
-            print("hopefully updated")
+            print("\n\tPress 2 to save update")
         case 2:
             save_settings()
-            print("hopefully saved")
+            print("\n\tsuccesfully saved")
         case 3:
             run = False
-            print("hopefully exits")
+            print("\n\tHave a great day!")
+    

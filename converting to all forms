@@ -1,0 +1,121 @@
+#Integer to binary conversion
+def integer_to_binary(integer):
+    binary = ""
+    while integer > 0:
+        binary = str(integer % 2) + binary
+        integer //= 2
+    return binary
+
+#Binary to integer conversion
+def binary_to_integer(binary):
+    integer = 0
+    str_binary = str(binary)
+    power = len(str_binary) - 1
+    for digit in str_binary:
+        if digit not in '01':
+            raise ValueError("Not a binary number")
+        integer += int(digit) * 2 ** power
+        power -= 1
+    return integer
+
+#Hexadecimal to RGB conversion
+def hex_to_rgb(hex):
+    if len(hex) != 6:
+        return ("DNE")
+    rgb = []
+    for i in (0, 2, 4):
+        decimal = int(hex[i:i+2], 16)
+        rgb.append(decimal)
+  
+    return tuple(rgb)
+
+#RGB to Hexadecimal conversion
+def rgb_to_hex(rgb):
+    return "{:02x}{:02x}{:02x}".format(*rgb)
+
+
+#run loop
+run = True
+while run:
+    print("Welcome to Sam's Converter! To start, please ")
+    
+    #gets type of conversion
+    valid_choice = False
+    while not valid_choice:
+        try:
+            choice = int(input("Type 1,2,3 or 4 to select the type of conversion.\n\t1 = integer to Binary\n\t2 = Binary to integer\n\t3 = Hexidecimal to RGB\n\t4 = RGB to Hexidecimal\n"))
+            if choice >=1 and choice <= 4:
+                valid_choice = True
+            else:
+                print("\nPlease type a number from 1-4")
+        except:
+            print("\nPlease type a Whole Number from the list")
+        
+    #gets number for conversion
+    valid_number = False
+    while not valid_number:
+        answer = {}
+        try:
+            match choice:
+                case 1:
+                    number = int(input("Type a Positive Whole number\n"))
+                    if number >= 0:
+                        answer["Binary"] = integer_to_binary(number)
+                        hx = hex(number)
+                        answer["Hex"] = hx
+                        answer["RGB"] = hex_to_rgb(hx)
+                        valid_number = True
+                    else:
+                        print("\nPlease give a Positive number")
+                        
+                case 2:
+                    number = int(input("Type a series of 1s and 0s\n"))
+                    if number >= 0:
+                        intg = binary_to_integer(number)
+                        answer["Integer"] = intg
+                        hx = hex(intg)
+                        answer["Hex"] = hx
+                        answer["RGB"] = hex_to_rgb(hx)
+                        valid_number = True
+                    else:
+                        print("\n1s and 0s must not be negative")
+                        
+                case 3:
+                    number = str(input("Type pairs of numbers and letters ranging from 0-9 and A-F (no spaces)\n"))
+                    intg = int(number, base=16)
+                    answer["Integer"] = intg
+                    answer["Binary"] = integer_to_binary(intg)
+                    answer["RGB"] = hex_to_rgb(number)
+                    valid_number = True
+                
+                case 4:
+                    list = input("Input three comma seprated Integers : ").split(",")
+                    tuple = (int(list[0]), int(list[1]), int(list[2]))
+                    hx = rgb_to_hex(tuple)
+                    intg = int(hx, base=16)
+                    answer["Integer"] = intg
+                    answer["Binary"] = integer_to_binary(intg)
+                    answer["Hex"] = hx
+                    valid_number = True
+                    
+                case _:
+                    print("\nplease type a valid Number")
+                    
+        except:
+            print("\nPlease type a valid Number")
+            
+    #outputs
+    print("\n\t= " + str(answer))
+    
+    
+    #exit with y or n
+    user_answered_exit = False
+    while not user_answered_exit:
+        exit = input("\nWould you like to restart? (y/n): ").lower()
+        if exit == "y":
+            user_answered_exit = True
+        elif exit == "n":
+            user_answered_exit = True
+            run = False
+        else:
+            print("\nPlease type 'y' or 'n'")

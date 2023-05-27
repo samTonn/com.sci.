@@ -1,0 +1,162 @@
+import os
+
+saved_lists = "saved_lists.txt"
+answer_list = {}
+
+def convert():
+    answer_list['resolution'] = input("resolution: ")
+    answer_list['volume'] = input("volume: ")
+    answer_list['graphics quality'] = input("graphics quality: ")
+
+def save():
+    with open(saved_lists, "w") as f:
+        f.write(str(answer_list))
+
+def load():
+    with open(saved_lists, "r") as f:
+        contents = f.read()
+    answer_list.update(eval(contents))
+    
+if os.path.isfile(saved_lists):
+    load()
+
+
+
+
+
+#Integer to binary conversion
+def integer_to_binary(integer):
+    binary = ""
+    while integer > 0:
+        binary = str(integer % 2) + binary
+        integer //= 2
+    return binary
+
+#Binary to integer conversion
+def binary_to_integer(binary):
+    integer = 0
+    str_binary = str(binary)
+    power = len(str_binary) - 1
+    for digit in str_binary:
+        if digit not in '01':
+            raise ValueError("Not a binary number")
+        integer += int(digit) * 2 ** power
+        power -= 1
+    return integer
+
+#Hexadecimal to RGB conversion
+def hex_to_rgb(hex):
+    if len(hex) != 6:
+        return ("DNE")
+    rgb = []
+    for i in (0, 2, 4):
+        decimal = int(hex[i:i+2], 16)
+        rgb.append(decimal)
+  
+    return tuple(rgb)
+
+#RGB to Hexadecimal conversion
+def rgb_to_hex(rgb):
+    return "{:02x}{:02x}{:02x}".format(*rgb)
+
+
+
+############################################################################################
+
+
+
+
+print("Welcome to Sam's Converter!")
+
+#run loop
+run = True
+while run:
+    answer = {}
+    
+    response = int(input("\nEnter one of the following:\nUpdate = 1\nSave = 2\nLast Save = 3\nExit = 4\n"))
+    match response:
+        case 1:
+            #gets type of conversion
+            valid_choice = False
+            while not valid_choice:
+                try:
+                    choice = int(input("Type 1,2,3 or 4 to select the type of conversion.\n\t1 = integer to Binary\n\t2 = Binary to integer\n\t3 = Hexidecimal to RGB\n\t4 = RGB to Hexidecimal\n"))
+                    if choice >=1 and choice <= 4:
+                        valid_choice = True
+                    else:
+                        print("\nPlease type a number from 1-4")
+                except:
+                    print("\nPlease type a Whole Number from the list")
+                
+            #gets number for conversion
+            valid_number = False
+            while not valid_number:
+                
+                try:
+                    match choice:
+                        case 1:
+                            number = int(input("Type a Positive Whole number\n"))
+                            if number >= 0:
+                                answer["Binary"] = integer_to_binary(number)
+                                hx = hex(number)
+                                answer["Hex"] = hx
+                                answer["RGB"] = hex_to_rgb(hx)
+                                valid_number = True
+                            else:
+                                print("\nPlease give a Positive number")
+                                
+                        case 2:
+                            number = int(input("Type a series of 1s and 0s\n"))
+                            if number >= 0:
+                                intg = binary_to_integer(number)
+                                answer["Integer"] = intg
+                                hx = hex(intg)
+                                answer["Hex"] = hx
+                                answer["RGB"] = hex_to_rgb(hx)
+                                valid_number = True
+                            else:
+                                print("\n1s and 0s must not be negative")
+                                
+                        case 3:
+                            number = str(input("Type pairs of numbers and letters ranging from 0-9 and A-F (no spaces)\n"))
+                            intg = int(number, base=16)
+                            answer["Integer"] = intg
+                            answer["Binary"] = integer_to_binary(intg)
+                            answer["RGB"] = hex_to_rgb(number)
+                            valid_number = True
+                        
+                        case 4:
+                            list = input("Input three comma seprated Integers : ").split(",")
+                            tuple = (int(list[0]), int(list[1]), int(list[2]))
+                            hx = rgb_to_hex(tuple)
+                            intg = int(hx, base=16)
+                            answer["Integer"] = intg
+                            answer["Binary"] = integer_to_binary(intg)
+                            answer["Hex"] = hx
+                            valid_number = True
+                            
+                        case _:
+                            print("\nplease type a valid Number")
+                            
+                except:
+                    print("\nPlease type a valid Number")
+
+            answer_list = str(answer)
+            print("\n\t= " + str(answer_list))
+            
+            
+        case 2:
+            save()
+            print("\n\tsuccesfully saved\n")
+            
+        case 3:
+            print()
+            with open(saved_lists, "r") as f:
+                print(f.read())
+            
+            
+        case 4:
+            run = False
+            print("\n\tHave a great day!")
+    
+    
